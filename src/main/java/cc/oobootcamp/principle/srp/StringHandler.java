@@ -1,8 +1,8 @@
 package cc.oobootcamp.principle.srp;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class StringHandler {
 
@@ -12,30 +12,28 @@ public class StringHandler {
 
     private String target;
 
+    private static final List<Converter> CONVERTER_LIST = Arrays.asList(
+            new DashDateConverter(),
+            new SlashDateConverter());
+
     public StringHandler(String source) {
         this.source = source;
     }
 
     public String convert() {
-        if (source.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            target = source.replaceAll("-", "");
-            return target;
-        } else if (source.matches("\\d{4}/\\d{2}/\\d{2}")) {
-            target = source.replaceAll("/", "");
-            return target;
-        }
-
-        Map<String, Integer> result = new HashMap<>();
-        char[] chars = source.toCharArray();
-        for (char c : chars) {
-            if (result.get(c) != null) {
-                result.put(String.valueOf(c), result.get(c) + 1);
-            } else {
-                result.put(String.valueOf(c), 1);
+        for (Converter converter : CONVERTER_LIST) {
+            if (converter.match(source)) {
+                target = converter.convert(source);
+                return target;
             }
         }
-        target = result.toString();
+        target = countChars().toString();
         return target;
+    }
+
+    private Map<String, Long> countChars() {
+        return Arrays.stream(source.split(""))
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
     }
 
     public void print() {
