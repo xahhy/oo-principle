@@ -20,6 +20,9 @@ public class StringHandler {
         if (source.matches("\\d{4}-\\d{2}-\\d{2}")) {
             target = source.replaceAll("-", "");
             return target;
+        } else if (source.matches("\\d{4}/\\d{2}/\\d{2}")) {
+            target = source.replaceAll("/", "");
+            return target;
         }
 
         Map<String, Integer> result = new HashMap<>();

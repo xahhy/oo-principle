@@ -21,4 +21,12 @@ class StringHandlerTest {
         assertEquals("{a=1, b=1, c=1, d=1}", result);
     }
 
+    @Test
+    void shouldReturn20190119WhenStringHandlerGivenNewDateFormat() {
+        StringHandler stringHandler = new StringHandler("2019/01/19");
+        String result = stringHandler.convert();
+        stringHandler.print();
+        assertEquals("20190119", result);
+    }
+
 }
