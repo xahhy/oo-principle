@@ -1,13 +1,24 @@
 package cc.oobootcamp.principle.srp;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class StringHandlerTest {
+
+public class StringHandlerTest {
 
     @Test
-    void shouldReturn20190119WhenStringHandlerGivenDateFormat() {
+    public void shouldReturnSourceTargetWhenStringHandlerToPrintStringGivenFormatDateString(){
+        String inputDate = "2019-01-19";
+        StringHandler stringHandler = new StringHandler(inputDate);
+        stringHandler.convert();
+
+        String result = stringHandler.toPrintString();
+        assertEquals("Source = 2019-01-19; Target = 20190119", result);
+    }
+
+    @Test
+    public void shouldReturn20190119WhenStringHandlerGivenDateFormat() {
         StringHandler stringHandler = new StringHandler("2019-01-19");
         String result = stringHandler.convert();
         stringHandler.print();
@@ -15,14 +26,14 @@ class StringHandlerTest {
     }
 
     @Test
-    void shouldReturnCharacterCountFormatWhenStringHandlerGivenNonDateFormat() {
+    public void shouldReturnCharacterCountFormatWhenStringHandlerGivenNonDateFormat() {
         StringHandler stringHandler = new StringHandler("abcd");
         String result = stringHandler.convert();
         assertEquals("{a=1, b=1, c=1, d=1}", result);
     }
 
     @Test
-    void shouldReturn20190119WhenStringHandlerGivenNewDateFormat() {
+    public void shouldReturn20190119WhenStringHandlerGivenNewDateFormat() {
         StringHandler stringHandler = new StringHandler("2019/01/19");
         String result = stringHandler.convert();
         stringHandler.print();

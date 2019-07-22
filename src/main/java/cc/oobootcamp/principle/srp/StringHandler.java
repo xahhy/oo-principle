@@ -39,6 +39,10 @@ public class StringHandler {
     }
 
     public void print() {
-        LOGGER.info("Source = " + source + "; Target = " + target);
+        LOGGER.info(toPrintString());
+    }
+
+    public String toPrintString() {
+        return "Source = " + source + "; Target = " + target;
     }
 }
