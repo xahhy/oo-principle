@@ -1,4 +1,4 @@
-package cc.oobootcamp.principle.srp;
+package cc.oobootcamp.principle.srp.converter;
 
 public interface Converter {
     Boolean match(String dateString);

@@ -1,12 +1,16 @@
 package cc.oobootcamp.principle.srp;
 
-import java.util.*;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import cc.oobootcamp.principle.srp.converter.Converter;
+import cc.oobootcamp.principle.srp.converter.CountCharsConverter;
+import cc.oobootcamp.principle.srp.converter.DashDateConverter;
+import cc.oobootcamp.principle.srp.converter.SlashDateConverter;
+import cc.oobootcamp.principle.srp.printer.ConsolePrinter;
+import cc.oobootcamp.principle.srp.printer.StringPrinter;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class StringHandler {
-
-    private static final Logger LOGGER = Logger.getLogger(StringHandler.class.getName());
 
     private String source;
 
@@ -15,10 +19,19 @@ public class StringHandler {
     private static final List<Converter> CONVERTER_LIST = Arrays.asList(
             new DashDateConverter(),
             new SlashDateConverter());
+
     private static final Converter DEFAULT_CONVERTER = new CountCharsConverter();
+
+    private StringPrinter stringPrinter;
 
     public StringHandler(String source) {
         this.source = source;
+        this.stringPrinter = new ConsolePrinter();
+    }
+
+    public StringHandler(String source, StringPrinter stringPrinter){
+        this.source = source;
+        this.stringPrinter = stringPrinter;
     }
 
     public String convert() {
@@ -34,7 +47,7 @@ public class StringHandler {
 
 
     public void print() {
-        LOGGER.info(toPrintString());
+        stringPrinter.print(target);
     }
 
     public String toPrintString() {
