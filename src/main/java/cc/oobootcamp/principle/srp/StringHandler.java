@@ -15,6 +15,7 @@ public class StringHandler {
     private static final List<Converter> CONVERTER_LIST = Arrays.asList(
             new DashDateConverter(),
             new SlashDateConverter());
+    private static final Converter DEFAULT_CONVERTER = new CountCharsConverter();
 
     public StringHandler(String source) {
         this.source = source;
@@ -27,14 +28,10 @@ public class StringHandler {
                 return target;
             }
         }
-        target = countChars().toString();
+        target = DEFAULT_CONVERTER.convert(source);
         return target;
     }
 
-    private Map<String, Long> countChars() {
-        return Arrays.stream(source.split(""))
-                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
-    }
 
     public void print() {
         LOGGER.info(toPrintString());
